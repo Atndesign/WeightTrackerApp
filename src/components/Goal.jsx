@@ -8,11 +8,21 @@ class Goal extends Component {
         higher: 75,
         current: 65,
         goal: 52
+      },
+      progress: {
+        width: ""
       }
     };
     this.progressBar = React.createRef();
   }
 
+  componentDidMount() {
+    this.setState({
+      progress: {
+        width: "50"
+      }
+    });
+  }
   render() {
     return (
       <div>
@@ -22,10 +32,7 @@ class Goal extends Component {
           <p className="progress-sm">{this.state.user.goal}</p>
         </div>
         <div ref={this.progressBar} className="progressBar">
-          <div
-            width={this.progressBar.width}
-            className="progressBar__fluid"
-          ></div>
+          <div className="progressBar__fluid"></div>
         </div>
       </div>
     );
