@@ -8,7 +8,7 @@ class User extends Component {
   };
   render() {
     return (
-      <header>
+      <header className="header">
         <div className="profilePic">
           <img
             className="profilePic__img"
@@ -17,7 +17,7 @@ class User extends Component {
             width="30px"
           />
         </div>
-        <p>Hello {this.state.username}</p>
+        <p className="header__greeting">Hello {this.state.username}</p>
       </header>
     );
   }
