@@ -6,7 +6,11 @@ class UserProfile extends Component {
     this.state = {};
   }
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <p>WIP</p>
+      </div>
+    );
   }
 }
 
