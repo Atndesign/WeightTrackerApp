@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
 class Goal extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       user: {
-        higher: 75,
-        current: 65,
-        goal: 52
+        higher: Math.max(this.props.weightList),
+        current: this.props.weightList[this.props.weightList.length - 1],
+        goal: this.props.goal
       },
       progress: {
         width: ""
@@ -19,9 +19,20 @@ class Goal extends Component {
   componentDidMount() {
     this.setState({
       progress: {
-        width: "50"
+        width: this.calculateProgression()
       }
     });
+  }
+
+  calculateProgression() {
+    let startKg = this.props.weightList[0];
+    let endKg = this.props.goal;
+    let current = this.props.weightList[this.props.weightList.length - 1];
+
+    let distance = endKg - startKg;
+    let progress = endKg - current;
+
+    return (progress / distance) * 100;
   }
   render() {
     return (
