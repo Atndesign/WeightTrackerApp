@@ -45,9 +45,17 @@ class Main extends Component {
     this.setState({ add: true });
   };
 
+  weightAdded = (e, kg, date) => {
+    console.log(kg, date);
+
+    e.preventDefault();
+    this.state.user.weight.push({ kg: kg, date: date });
+    this.setState({ add: false });
+  };
+
   render() {
     if (this.state.add) {
-      return <AddWeight />;
+      return <AddWeight addWeight={this.weightAdded} />;
     } else {
       return (
         <React.Fragment>
