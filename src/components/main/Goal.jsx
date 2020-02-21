@@ -5,7 +5,7 @@ class Goal extends Component {
     super(props);
     this.state = {
       user: {
-        higher: Math.max(this.props.weightList),
+        higher: Math.max(...this.props.weightList),
         current: this.props.weightList[this.props.weightList.length - 1],
         goal: this.props.goal
       },
@@ -43,7 +43,10 @@ class Goal extends Component {
           <p className="progress-sm">{this.state.user.goal}</p>
         </div>
         <div ref={this.progressBar} className="progressBar">
-          <div className="progressBar__fluid"></div>
+          <div
+            className="progressBar__fluid"
+            style={{ width: +(100 - this.state.progress.width) + "%" }}
+          ></div>
         </div>
       </div>
     );
