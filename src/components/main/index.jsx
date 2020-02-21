@@ -9,7 +9,15 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      add: false
+      add: false,
+      user: {
+        username: "Kevin",
+        height: 180,
+        gender: "male",
+        weight: [100, 150, 120, 110, 111, 88],
+        goal: 80,
+        bmi: 69
+      }
     };
   }
 
@@ -26,9 +34,12 @@ class Main extends Component {
           <button className="add-weight__btn" onClick={this.addWeight}>
             Add weight
           </button>
-          <User />
-          <Graph />
-          <Goal />
+          <User username={this.state.user.username} />
+          <Graph weightList={this.state.user.weight} />
+          <Goal
+            weightList={this.state.user.weight}
+            goal={this.state.user.goal}
+          />
           <Bmi />
           <HistoryList />
         </React.Fragment>
