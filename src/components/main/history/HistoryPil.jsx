@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 
 class HistoryPil extends Component {
-  state = {
-    isMoreThanBefore: true,
-    weight: 0
-  };
   // componentDidMount() {
   //   this.weightLost();
   // }
