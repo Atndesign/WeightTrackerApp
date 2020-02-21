@@ -7,18 +7,15 @@ class HistoryList extends Component {
     data: [
       {
         day: "12 oct 2018",
-        weight: 68,
-        bmi: 23
+        weight: 68
       },
       {
         day: "11 oct 2018",
-        weight: 70,
-        bmi: 26
+        weight: 70
       },
       {
         day: "10 oct 2018",
-        weight: 80,
-        bmi: 24
+        weight: 80
       }
     ]
   };
