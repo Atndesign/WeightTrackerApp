@@ -4,6 +4,7 @@ import Chart from "react-apexcharts";
 class Graph extends Component {
   constructor(props) {
     super(props);
+    this.weight = [];
     this.state = {
       options: {
         chart: {
@@ -41,12 +42,14 @@ class Graph extends Component {
       series: [
         {
           name: "series-1",
-          data: [...this.props.weightList].reverse()
+          data: this.weight.reverse()
         }
       ]
     };
   }
-
+  componentDidMount() {
+    this.props.weightList.map(e => this.weight.push(e.kg));
+  }
   render() {
     return (
       <Chart
