@@ -4,32 +4,19 @@ import HistoryPil from "./HistoryPil";
 class HistoryList extends Component {
   state = {
     weight: [80, 76, 78],
-    data: [
-      {
-        day: "12 oct 2018",
-        weight: 68
-      },
-      {
-        day: "11 oct 2018",
-        weight: 70
-      },
-      {
-        day: "10 oct 2018",
-        weight: 80
-      }
-    ]
+    data: this.props.weightList
   };
   render() {
     return (
       <div>
         <h2 className="section-title">History</h2>
-        {this.state.data.map((e, index) => {
+        {this.state.data.reverse().map((e, index) => {
           return (
             <HistoryPil
               weightList={this.state.weight}
-              key={e.day}
-              weight={e.weight}
-              day={e.day}
+              key={e.date}
+              weight={e.kg}
+              day={e.date}
               index={index}
             />
           );
