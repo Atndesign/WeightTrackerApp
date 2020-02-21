@@ -12,11 +12,31 @@ class Main extends Component {
       add: false,
       user: {
         username: "Kevin",
-        height: 180,
+        height: 189,
         gender: "male",
-        weight: [100, 150, 120, 110, 111, 88],
-        goal: 80,
-        bmi: 69
+        weight: [
+          {
+            kg: 100,
+            date: "21 february 2020"
+          },
+          {
+            kg: 99,
+            date: "22 february 2020"
+          },
+          {
+            kg: 98,
+            date: "23 february 2020"
+          },
+          {
+            kg: 94,
+            date: "24 february 2020"
+          },
+          {
+            kg: 90,
+            date: "25 february 2020"
+          }
+        ],
+        goal: 80
       }
     };
   }
@@ -40,8 +60,8 @@ class Main extends Component {
             weightList={this.state.user.weight}
             goal={this.state.user.goal}
           />
-          <Bmi />
-          <HistoryList />
+          <Bmi weightList={this.state.user.weight} user={this.state.user} />
+          <HistoryList weightList={this.state.user.weight} />
         </React.Fragment>
       );
     }
