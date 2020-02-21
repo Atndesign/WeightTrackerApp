@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
 class Bmi extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      weight: 86,
-      height: 189,
+      weight: this.props.weightList[this.props.weightList.length - 1].kg,
+      height: this.props.user.height,
       isHealthy: true,
       bmi: 0
     };
