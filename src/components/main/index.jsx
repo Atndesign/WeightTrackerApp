@@ -5,6 +5,7 @@ import Graph from "./Graph";
 import HistoryList from "./history/HistoryList";
 import User from "./User";
 import AddWeight from "./AddWeight";
+import app from "../../firebase";
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -59,9 +60,17 @@ class Main extends Component {
     } else {
       return (
         <React.Fragment>
-          <button className="add-weight__btn" onClick={this.addWeight}>
-            Add weight
-          </button>
+          <div className="btn-bottom__container">
+            <button className="add-weight__btn" onClick={this.addWeight}>
+              Add weight
+            </button>
+            <button
+              className="add-weight__btn"
+              onClick={() => app.auth().signOut()}
+            >
+              Sign out
+            </button>
+          </div>
           <User username={this.state.user.username} />
           <Graph weightList={this.state.user.weight} />
           <Goal
