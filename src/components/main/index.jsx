@@ -6,42 +6,43 @@ import HistoryList from "./history/HistoryList";
 import User from "./User";
 import AddWeight from "./AddWeight";
 import app from "../../firebase";
+import "firebase/firestore";
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      add: false,
-      user: {
-        username: "Kevin",
-        height: 189,
-        gender: "male",
-        weight: [
-          {
-            kg: 100,
-            date: "21 february 2020"
-          },
-          {
-            kg: 99,
-            date: "22 february 2020"
-          },
-          {
-            kg: 98,
-            date: "23 february 2020"
-          },
-          {
-            kg: 94,
-            date: "24 february 2020"
-          },
-          {
-            kg: 90,
-            date: "25 february 2020"
-          }
-        ],
-        goal: 80
-      }
+      user: "",
+      weights: [{ kg: 0, date: "today" }]
     };
   }
 
+  componentDidMount() {
+    app.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ userId: user.uid });
+      } else {
+        // No user is signed in.
+      }
+    });
+
+    this.fetchData();
+  }
+  fetchData = async () => {
+    const db = app.firestore();
+    const data = await db
+      .collection("users")
+      .doc("WtFThdf6GUMRzxOP2WZLuuQt2LY2")
+      .get();
+    const weightList = await db
+      .collection("users")
+      .doc("WtFThdf6GUMRzxOP2WZLuuQt2LY2")
+      .collection("Weight")
+      .get();
+    this.setState({
+      user: data.data(),
+      weights: weightList.docs.map(e => e.data())
+    });
+  };
   addWeight = () => {
     this.setState({ add: true });
   };
@@ -55,32 +56,31 @@ class Main extends Component {
   };
 
   render() {
-    if (this.state.add) {
-      return <AddWeight addWeight={this.weightAdded} />;
-    } else {
-      return (
-        <React.Fragment>
-          <div className="btn-bottom__container">
-            <button className="add-weight__btn" onClick={this.addWeight}>
-              Add weight
-            </button>
-            <button
-              className="add-weight__btn"
-              onClick={() => app.auth().signOut()}
-            >
-              Sign out
-            </button>
-          </div>
-          <User username={this.state.user.username} />
-          <Graph weightList={this.state.user.weight} />
-          <Goal
-            weightList={this.state.user.weight}
-            goal={this.state.user.goal}
-          />
-          <Bmi weightList={this.state.user.weight} user={this.state.user} />
-          <HistoryList weightList={this.state.user.weight} />
-        </React.Fragment>
-      );
+    if (this.state.weights !== []) {
+      if (this.state.add) {
+        return <AddWeight addWeight={this.weightAdded} />;
+      } else {
+        return (
+          <React.Fragment>
+            <div className="btn-bottom__container">
+              <button className="add-weight__btn" onClick={this.addWeight}>
+                Add weight
+              </button>
+              <button
+                className="add-weight__btn"
+                onClick={() => app.auth().signOut()}
+              >
+                Sign out
+              </button>
+            </div>
+            <User username={this.state.user.username} />
+            <Graph weightList={this.state.weights} />
+            <Goal weightList={this.state.weights} goal={this.state.user.goal} />
+            <Bmi weightList={this.state.weights} user={this.state.user} />
+            <HistoryList weightList={this.state.weights} />
+          </React.Fragment>
+        );
+      }
     }
   }
 }
