@@ -20,22 +20,21 @@ class Main extends Component {
     app.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ userId: user.uid });
+        this.fetchData();
       } else {
         // No user is signed in.
       }
     });
-
-    this.fetchData();
   }
   fetchData = async () => {
     const db = app.firestore();
     const data = await db
       .collection("users")
-      .doc("WtFThdf6GUMRzxOP2WZLuuQt2LY2")
+      .doc(this.state.userId)
       .get();
     const weightList = await db
       .collection("users")
-      .doc("WtFThdf6GUMRzxOP2WZLuuQt2LY2")
+      .doc(this.state.userId)
       .collection("Weight")
       .get();
     this.setState({
