@@ -6,7 +6,7 @@ class HistoryList extends Component {
     return (
       <div className="history-list">
         <h2 className="section-title">History</h2>
-        {this.props.weights.reverse().map((e, index) => {
+        {this.props.weightList.reverse().map((e, index) => {
           return <HistoryPil key={e.Kg} weight={e.Kg} index={index} />;
         })}
       </div>
