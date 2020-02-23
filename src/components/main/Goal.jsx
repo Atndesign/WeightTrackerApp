@@ -4,6 +4,7 @@ class Goal extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      max: "",
       progress: {
         width: ""
       }
@@ -11,12 +12,26 @@ class Goal extends Component {
     this.progressBar = React.createRef();
   }
   componentDidMount() {
+    this.getHigher();
     this.setState({
       progress: {
         width: this.calculateProgression()
       }
     });
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.weightList !== this.props.weightList) {
+      this.getHigher();
+      this.calculateProgression();
+    }
+  }
+  getHigher = () => {
+    let list = [];
+    this.props.weightList.map(e => list.push(e.Kg));
+    this.setState({
+      max: Math.max(...list)
+    });
+  };
 
   calculateProgression() {
     let startKg = this.props.weightList[0].Kg;
@@ -32,11 +47,8 @@ class Goal extends Component {
     return (
       <div>
         <div className="progress-labels">
-          <p className="progress-sm">{Math.max(...this.props.weightList)}</p>
+          <p className="progress-sm">{this.state.max}</p>
           <p className="progress-current">
-            {console.log(
-              this.props.weightList[this.props.weightList.length - 1].Kg
-            )}
             {this.props.weightList[this.props.weightList.length - 1].Kg}
           </p>
           <p className="progress-sm">{this.props.goal}</p>
