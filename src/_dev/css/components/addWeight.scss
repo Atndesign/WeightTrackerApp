@@ -1,0 +1,57 @@
+.addWeight {
+    position: relative;
+    z-index: 1;
+    background-color: #16172e;
+    height: 100%;
+    width: 100%;
+
+    .addWeight__title {
+        font-size: 36px;
+        font-weight: 900;
+        margin-top: 52px;
+        margin-bottom: 52px;
+    }
+
+    .addWeight__label {
+        text-align: left;
+        margin-bottom: 17px;
+        width: 100%;
+    }
+
+    .addWeight__inputs {
+        font-family: $font-family-base;
+        color: white;
+        background-color: $darkBlue;
+        border: none;
+        width: 100%;
+        margin-bottom: $lg-marg;
+        padding: 15px;
+        background-repeat: no-repeat;
+        background-size: 20px;
+        background-position: 95% center;
+        padding-right: 50px;
+    }
+}
+
+.btn-bottom__container {
+    z-index: 100;
+    position: absolute;
+    bottom: 10px;
+    width: 90%;
+    padding: 15px;
+}
+
+.add-weight__btn {
+    font-family: $font-family-base;
+    color: white;
+    background-color: black;
+    border: 0;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 16px;
+
+    &:hover {
+        color: black;
+        background-color: white;
+    }
+}

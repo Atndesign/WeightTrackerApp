@@ -1,0 +1,27 @@
+.bmi {
+    border-radius: 7px;
+    padding: 20px 10px 30px 10px;
+    background-color: $darkBlue;
+    text-align: left;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: $lg-marg;
+}
+
+.bmi__state {
+    margin-bottom: 18px;
+}
+
+.bmi__indicator {
+    position: relative;
+    height: 20px;
+    background: linear-gradient(90deg, #5FB2FF 0%, #5FD8FF 23.44%, #FFD541 48.96%, #FF8541 76.04%, #FF4141 100%);
+}
+
+.bmi-indicator__slider {
+    position: absolute;
+    left: 40%;
+    width: 4px;
+    height: 30px;
+    margin-top: -5px;
+    background-color: white;
+}

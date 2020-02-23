@@ -1,0 +1,28 @@
+.progress-labels {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.progress-current {
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.progress-sm {
+  color: #c7c7c7;
+  font-size: 18px;
+}
+
+.progressBar {
+  height: 4px;
+  background-color: $darkBlue;
+  margin-bottom: $lg-marg;
+}
+
+.progressBar__fluid {
+  height: 4px;
+  background-color: #41bbff;
+  width: 40%;
+}

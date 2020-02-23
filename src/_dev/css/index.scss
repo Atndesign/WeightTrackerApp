@@ -1,0 +1,54 @@
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "./_partials/reset";
+@import "./_partials/fonts";
+@import "./_partials/variable";
+
+//Default
+a,
+p,
+h1,
+h2,
+label {
+  font-family: $font-family-base;
+  color: white;
+}
+
+.section-title {
+  font-size: $font-size-h2;
+  font-weight: 900;
+  margin-bottom: 17px;
+  text-align: left;
+}
+
+.submit-btn {
+  font-family: $font-family-base;
+  padding: 12px 30px;
+  background: #000000;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  text-align: center;
+
+  &:hover {
+    color: black;
+    background-color: white;
+  }
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+body {
+  background-color: #16172e;
+}
+
+//Components
+@import "./components/user.scss";
+@import "./components/weightChart.scss";
+@import "./components/goal.scss";
+@import "./components/bmi.scss";
+@import "./components/history.scss";
+@import "./components/loggin.scss";
+@import "./components/addWeight.scss"
+//Common

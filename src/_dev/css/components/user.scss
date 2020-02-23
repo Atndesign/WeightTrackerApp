@@ -1,0 +1,25 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding-top: $lg-marg;
+    margin-bottom: $lg-marg;
+    position: relative;
+}
+
+.profilePic {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    overflow: hidden;
+    position: absolute;
+
+    .profilePic__img {}
+}
+
+.header__greeting {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 900;
+    width: 100%;
+}
