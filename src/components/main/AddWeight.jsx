@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class AddWeight extends Component {
   state = {
-    weight: 0,
+    weight: "",
     date: ""
   };
 
