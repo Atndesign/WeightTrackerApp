@@ -4,8 +4,6 @@ class Bmi extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      weight: "",
-      height: this.props.user.height,
       isHealthy: true,
       bmi: 0
     };
@@ -13,19 +11,7 @@ class Bmi extends Component {
     this.minBmi = 18.5;
   }
   componentDidMount() {
-    if (this.props.weightList.length === 0) return;
-    this.setState({
-      weight: this.props.weightList[this.props.weightList.length - 1].kg
-    });
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.weightList !== this.props.weightList) {
-      this.setState({
-        weight: this.props.weightList[this.props.weightList.length - 1].Kg,
-        height: this.props.user.height
-      });
-      this.calculateBmi();
-    }
+    this.calculateBmi();
   }
   calculateBmi() {
     let bmi =
