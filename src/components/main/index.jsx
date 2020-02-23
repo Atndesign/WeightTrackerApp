@@ -12,7 +12,7 @@ class Main extends Component {
     super(props);
     this.state = {
       user: "",
-      weights: [{ kg: 0, date: "today" }]
+      weights: null
     };
   }
 
@@ -47,15 +47,28 @@ class Main extends Component {
   };
 
   weightAdded = (e, kg, date) => {
-    console.log(kg, date);
-
     e.preventDefault();
-    this.state.user.weight.push({ kg: kg, date: date });
+    const newWeight = { Kg: kg, Date: date };
+    this.state.weights.push(newWeight);
+    this.sendToDB(newWeight);
     this.setState({ add: false });
   };
 
+  sendToDB = async newWeight => {
+    await app
+      .firestore()
+      .collection("users")
+      .doc(this.state.userId)
+      .collection("Weight")
+      .add({
+        Kg: newWeight.Kg,
+        Date: newWeight.Date
+      });
+  };
+
   render() {
-    if (this.state.weights !== []) {
+    if (this.state.weights) {
+      console.log(this.state.weights);
       if (this.state.add) {
         return <AddWeight addWeight={this.weightAdded} />;
       } else {
@@ -80,6 +93,8 @@ class Main extends Component {
           </React.Fragment>
         );
       }
+    } else {
+      return <div>loading datas...</div>;
     }
   }
 }
