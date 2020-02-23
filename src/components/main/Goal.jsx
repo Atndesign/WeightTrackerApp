@@ -4,34 +4,14 @@ class Goal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      weightList: [],
-      higher: null,
-      current: "",
-      goal: "",
       progress: {
         width: ""
       }
     };
     this.progressBar = React.createRef();
-    this.weightList = [];
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.weightList !== this.props.weightList) {
-      this.setState({
-        goal: this.props.goal,
-        higher: Math.max(...this.weightList),
-        current: this.props.weightList[this.props.weightList.length - 1].Kg,
-        progress: {
-          width: this.calculateProgression()
-        }
-      });
-    }
   }
   componentDidMount() {
-    this.props.weightList.map(e => this.weightList.push(e.kg));
     this.setState({
-      higher: Math.max(...this.weightList),
-      current: this.props.weightList[this.props.weightList.length - 1].kg,
       progress: {
         width: this.calculateProgression()
       }
@@ -39,9 +19,9 @@ class Goal extends Component {
   }
 
   calculateProgression() {
-    let startKg = this.props.weightList[0].kg;
+    let startKg = this.props.weightList[0].Kg;
     let endKg = this.props.goal;
-    let current = this.props.weightList[this.props.weightList.length - 1].kg;
+    let current = this.props.weightList[this.props.weightList.length - 1].Kg;
 
     let distance = endKg - startKg;
     let progress = endKg - current;
@@ -52,9 +32,14 @@ class Goal extends Component {
     return (
       <div>
         <div className="progress-labels">
-          <p className="progress-sm">{this.state.higher}</p>
-          <p className="progress-current">{this.state.current}</p>
-          <p className="progress-sm">{this.state.goal}</p>
+          <p className="progress-sm">{Math.max(...this.props.weightList)}</p>
+          <p className="progress-current">
+            {console.log(
+              this.props.weightList[this.props.weightList.length - 1].Kg
+            )}
+            {this.props.weightList[this.props.weightList.length - 1].Kg}
+          </p>
+          <p className="progress-sm">{this.props.goal}</p>
         </div>
         <div ref={this.progressBar} className="progressBar">
           <div
