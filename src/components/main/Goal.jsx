@@ -6,8 +6,8 @@ class Goal extends Component {
     this.state = {
       max: "",
       progress: {
-        width: ""
-      }
+        width: "",
+      },
     };
     this.progressBar = React.createRef();
   }
@@ -15,8 +15,8 @@ class Goal extends Component {
     this.getHigher();
     this.setState({
       progress: {
-        width: this.calculateProgression()
-      }
+        width: this.calculateProgression(),
+      },
     });
   }
   componentDidUpdate(prevProps) {
@@ -27,9 +27,9 @@ class Goal extends Component {
   }
   getHigher = () => {
     let list = [];
-    this.props.weightList.map(e => list.push(e.Kg));
+    this.props.weightList.map((e) => list.push(e.Kg));
     this.setState({
-      max: Math.max(...list)
+      max: Math.max(...list),
     });
   };
 
@@ -40,7 +40,6 @@ class Goal extends Component {
 
     let distance = endKg - startKg;
     let progress = endKg - current;
-
     return (progress / distance) * 100;
   }
   render() {

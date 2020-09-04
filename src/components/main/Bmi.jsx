@@ -5,7 +5,7 @@ class Bmi extends Component {
     super(props);
     this.state = {
       isHealthy: true,
-      bmi: 0
+      bmi: 0,
     };
     this.maxBmi = 40;
     this.minBmi = 18.5;

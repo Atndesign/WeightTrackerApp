@@ -1,49 +1,49 @@
-import React, { Component, useContext } from "react";
-import { useCallback } from "react";
-import app from "../../firebase";
-import { AuthContext } from "../../Auth";
+import React, { Component } from "react";
 import { Redirect } from "react-router";
+import UserStorage from "./UserStorage";
 
-const SignIn = ({ history }) => {
-  const handleSignIn = useCallback(
-    async event => {
-      event.preventDefault();
-      const { email, password } = event.target.elements;
-      try {
-        await app
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value);
-        history.push("/");
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    [history]
-  );
+const userStorage = new UserStorage();
+const SignIn = () => {
+  const handleSignIn = (event) => {
+    event.preventDefault();
+    let userName = event.target.email.value;
+    let goal = event.target.goal.value;
+    let height = event.target.height.value;
+    if (userName && goal) {
+      userStorage.save("username", userName);
+      userStorage.save("height", height);
+      userStorage.save("goal", goal);
+      return <Redirect to="/" />;
+    } else {
+      alert("you must enter your name or a goal");
+      return null;
+    }
+  };
 
-  const { currentUser } = useContext(AuthContext);
-
-  if (currentUser) {
+  if (userStorage.load("username")) {
     return <Redirect to="/" />;
   }
 
   return (
     <div>
       <h1 className="login__title">WeightTracker</h1>
-      <form className="login" onSubmit={handleSignIn}>
+      <form className="login" onSubmit={(e) => handleSignIn(e)}>
         <label className="login__label" htmlFor="email">
-          Your email
+          It seems that it's your first connection, what's your name ?
         </label>
-        <input name="email" id="email" className="login__inputs" type="email" />
-
-        <label className="login__label" htmlFor="password">
-          Password
+        <input name="email" id="email" className="login__inputs" type="text" />
+        <label className="login__label" htmlFor="email">
+          What is your goal ?
+        </label>
+        <input name="goal" id="goal" className="login__inputs" type="number" />
+        <label className="login__label" htmlFor="email">
+          What is your height (in M) ?
         </label>
         <input
-          name="password"
-          id="password"
-          className="login__inputs --password"
-          type="password"
+          name="height"
+          id="height"
+          className="login__inputs"
+          type="number"
         />
         <button className="submit-btn" type="submit">
           Log in

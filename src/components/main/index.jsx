@@ -5,43 +5,26 @@ import Graph from "./Graph";
 import HistoryList from "./history/HistoryList";
 import User from "./User";
 import AddWeight from "./AddWeight";
-import app from "../../firebase";
-import "firebase/firestore";
+import UserStorage from "../loggin/UserStorage";
+import { Redirect } from "react-router";
+const userStorage = new UserStorage();
+
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "",
-      weights: null
+      user: {
+        username: userStorage.load("username"),
+        goal: userStorage.load("goal"),
+        height: userStorage.load("height"),
+      },
+      weights: [
+        {
+          Kg: 80,
+        },
+      ],
     };
   }
-
-  componentDidMount() {
-    app.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setState({ userId: user.uid });
-        this.fetchData();
-      } else {
-        // No user is signed in.
-      }
-    });
-  }
-  fetchData = async () => {
-    const db = app.firestore();
-    const data = await db
-      .collection("users")
-      .doc(this.state.userId)
-      .get();
-    const weightList = await db
-      .collection("users")
-      .doc(this.state.userId)
-      .collection("Weight")
-      .get();
-    this.setState({
-      user: data.data(),
-      weights: weightList.docs.map(e => e.data())
-    });
-  };
   addWeight = () => {
     this.setState({ add: true });
   };
@@ -50,23 +33,20 @@ class Main extends Component {
     e.preventDefault();
     const newWeight = { Kg: kg, Date: date };
     this.state.weights.push(newWeight);
-    this.sendToDB(newWeight);
+    console.log(this.state.weighs);
+    userStorage.save("weights", JSON.stringify(this.state.weights));
     this.setState({ add: false });
   };
-
-  sendToDB = async newWeight => {
-    await app
-      .firestore()
-      .collection("users")
-      .doc(this.state.userId)
-      .collection("Weight")
-      .add({
-        Kg: newWeight.Kg,
-        Date: newWeight.Date
-      });
-  };
+  componentWillMount() {
+    if (userStorage.load("weights")) {
+      this.setState({ weights: JSON.parse(userStorage.load("weights")) });
+    }
+  }
 
   render() {
+    if (!userStorage.load("username")) {
+      return <Redirect to="/login" />;
+    }
     if (this.state.weights) {
       console.log(this.state.weights);
       if (this.state.add) {
@@ -77,12 +57,6 @@ class Main extends Component {
             <div className="btn-bottom__container">
               <button className="add-weight__btn" onClick={this.addWeight}>
                 Add weight
-              </button>
-              <button
-                className="add-weight__btn"
-                onClick={() => app.auth().signOut()}
-              >
-                Sign out
               </button>
             </div>
             <User username={this.state.user.username} />
